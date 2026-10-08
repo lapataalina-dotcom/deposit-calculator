@@ -1,0 +1,7 @@
+// Автоподбор/скачивание JDK 17 для toolchain (у вас установлена только JDK 21).
+// Если JDK 17 уже стоит на машине — этот блок можно удалить.
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+rootProject.name = 'deposit-calculator'

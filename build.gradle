@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'by.student'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+// Кодировка исходников и тестов — как encoding=UTF-8 в Ant и Maven.
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    testImplementation(
+        'org.junit.jupiter:junit-jupiter:5.14.4'
+    )
+
+    // Gradle 9 требует явно указать JUnit Platform Launcher для запуска тестов.
+    testRuntimeOnly(
+        'org.junit.platform:junit-platform-launcher:1.14.4'
+    )
+}
+
+application {
+    mainClass = 'by.student.deposit.Main'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
+
+    reports {
+        html.required = true
+        junitXml.required = true
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'by.student.deposit.Main'
+        )
+    }
+}
